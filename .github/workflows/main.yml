@@ -1,5 +1,10 @@
 name: Build APK
-on: [push, pull_request]
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
 
 jobs:
   build:
@@ -24,9 +29,8 @@ jobs:
       - name: Build APK
         run: |
           export FORCE_JAVASCRIPT_ACTIONS_TO_NODE24=true
-          # Чистая сборка без кэша
+          # Сборка без кэша для чистоты результата
           rm -rf .buildozer
           buildozer -v android debug
         env:
           JAVA_HOME: /usr/lib/jvm/java-17-openjdk-amd64
-
